@@ -92,7 +92,7 @@ public class Floor implements Runnable{
 
 		try {
 
-			File myObj = new File("FloorInput.txt");
+			File myObj = new File("Input.txt");
 			Scanner myReader = new Scanner(myObj);
 			int i = 0;
 
