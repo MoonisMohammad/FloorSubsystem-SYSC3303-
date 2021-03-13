@@ -161,43 +161,6 @@ public class Data {
 		return carButton;
 	}
 	
-	/** 
-	 *
-	 * Returns the system input time
-	 *
-	 * @return int 
-	 */
-	public int TimeInSeconds() {
-		
-		return TimeInSeconds;
-	}
-	
-	/** 
-	 *
-	 * Returns the Simulated Time
-	 *
-	 * @return int 
-	 */
-	public int simulatedTime() {
-		
-		return simulatedTime;
-	}
-	
-	/** 
-	 *
-	 * Calculates simulated Time
-	 * @return 
-	 *
-	 * @return int 
-	 */
-	public void simulatedTime(int reference) {
-		
-		simulatedTime = TimeInSeconds -  reference;
-	}
-	
-	public String toString() {
-		return simulatedTime+" ms";
-	}
 	
 
 	/** 
