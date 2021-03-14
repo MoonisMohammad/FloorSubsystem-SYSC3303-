@@ -19,6 +19,7 @@ public class StartFloorSubSystem {
 		try {
 			schedulerRegistry = LocateRegistry.getRegistry(5454);
 			sendChannel = (FloorChannel) schedulerRegistry.lookup("FloorChannel");
+			System.err.println("Floor send channel ready");
 
 		}catch (RemoteException e) {
 			e.printStackTrace();
@@ -39,7 +40,7 @@ public class StartFloorSubSystem {
 			stub = (FloorInterface) UnicastRemoteObject.exportObject((FloorInterface)floorSubsystem, 69);
 			registry = LocateRegistry.createRegistry(69);
 			registry.bind("FloorInterface",stub);
-			System.err.println("Server ready");
+			System.err.println("Floor receive channel ready");
 
 
 

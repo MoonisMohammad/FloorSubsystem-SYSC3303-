@@ -1,4 +1,3 @@
-package elevator;
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.rmi.RemoteException;
@@ -29,7 +28,7 @@ public class Floor implements Runnable{
 
 		this.floorChannel = floorChannel;
 		inputs = readInputFile();
-		System.out.println("input Sent From Floor: " + inputs.peek());
+
 	}
 
 	/** 
@@ -46,13 +45,13 @@ public class Floor implements Runnable{
 
 				try {
 					
-					floorChannel.passChannel(inputs.peek());
+					floorChannel.passChannel(inputs.peek());//sends inputs as data to scheduler
 					
 				} catch (RemoteException e) {
 					e.printStackTrace();
-				}//sends inputs as data to scheduler
+				}
 				
-				System.out.println("input Sent From Floor: " + inputs.peek());
+				System.out.println("Input Sent From Floor: " + inputs.peek());
 				inputs.poll();
 			}
 
