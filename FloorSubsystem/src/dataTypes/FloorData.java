@@ -1,9 +1,14 @@
-package elevator;
+package dataTypes;
+
 /**
 * The class Floor data extends data
 */ 
-public class FloorData extends Data {
+public class FloorData extends Data implements java.io.Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int TimeInSeconds;
 	int simulatedTime;
 	

@@ -1,4 +1,4 @@
-package elevator;
+package dataTypes;
 public class Data {
 	int hour;
 	int minute;
