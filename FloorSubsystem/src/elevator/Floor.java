@@ -77,7 +77,6 @@ public class Floor implements Runnable{
 	public static boolean timeCheck(FloorData d){
 
 		if(d.simulatedTime() >= ((System.nanoTime() - startingTime) / 1000000000)) {
-			System.out.println("i am here");
 			return true;}
 
 		return false;

@@ -16,7 +16,15 @@ public class ElevatorSimulator {
 
 	}
 
-
+	/** 
+	 *
+	 * Go up
+	 *
+	 * @param InterruptedException  the interrupted exception
+	 * @param {  the {
+	 * @throws   InterruptedException
+	 * @throws  RemoteException 
+	 */
 	public void goUp() throws InterruptedException, RemoteException {
 
 		moveFloorTime();
@@ -25,7 +33,15 @@ public class ElevatorSimulator {
 
 
 	}
-
+	/** 
+	 *
+	 * Go down
+	 *
+	 * @param InterruptedException  the interrupted exception
+	 * @param {  the {
+	 * @throws   InterruptedException
+	 * @throws  RemoteException 
+	 */
 	public void goDown() throws InterruptedException, RemoteException {
 
 		moveFloorTime();
@@ -34,7 +50,14 @@ public class ElevatorSimulator {
 
 	}
 
-	
+
+	/** 
+	 *
+	 * Simulates move floor time
+	 *
+	 * @param InterruptedException  the interrupted exception
+	 * @throws   InterruptedException 
+	 */
 
 	public void moveFloorTime() throws InterruptedException {
 

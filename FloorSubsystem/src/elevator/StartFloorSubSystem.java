@@ -9,7 +9,13 @@ import java.rmi.server.UnicastRemoteObject;
 public class StartFloorSubSystem {
 
 	static FloorChannel sendChannel;
-
+	
+	/** 
+	 *
+	 *Starts the floor subsystem
+	 * 
+	 *
+	 */
 	public static void main(String[] args)  {
 
 
@@ -50,7 +56,6 @@ public class StartFloorSubSystem {
 			e.printStackTrace();
 
 		} catch (java.rmi.AlreadyBoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		floorThread.start();

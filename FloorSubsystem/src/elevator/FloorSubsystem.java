@@ -3,10 +3,23 @@ package elevator;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 
+
+/**
+* The class Floor subsystem implements floor interface
+*/ 
+
 public class FloorSubsystem implements FloorInterface{
 
 	static FloorChannel sendChannel;
 	HashMap<Integer, ElevatorSimulator> elevators = new HashMap<Integer, ElevatorSimulator>();
+	
+	/** 
+	 *
+	 * Floor subsystem constructor
+	 *
+	 * @param sendChannel  the send channel
+	 * @return 	public
+	 */
 
 	public FloorSubsystem(FloorChannel sendChannel) {
 
@@ -20,6 +33,16 @@ public class FloorSubsystem implements FloorInterface{
 		elevators.put(2,elev2);
 
 	}
+	
+	/** 
+	 *
+	 * Moves elevator up or down
+	 *
+	 * @param elevator  the elevator
+	 * @param move  the move
+	 * @throws   RemoteException
+	 */
+		
 
 
 	@Override
