@@ -1,3 +1,5 @@
+package elevator;
+
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.rmi.RemoteException;
@@ -91,7 +93,7 @@ public class Floor implements Runnable{
 		Queue<FloorData> inputs = new LinkedList();
 
 		try {
-
+			System.out.println(System.getProperty("user.dir"));
 			File myObj = new File("Input.txt");
 			Scanner myReader = new Scanner(myObj);
 			int i = 0;
