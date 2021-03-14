@@ -1,17 +1,23 @@
 package dataTypes;
 
+import java.util.ArrayList;
+
 /**
-* The class Floor data extends data
-*/ 
+ * The class Floor data extends data
+ */ 
 public class FloorData extends Data implements java.io.Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	int TimeInSeconds;
-	int simulatedTime;
-	
+
+	transient int TimeInSeconds;
+	transient int simulatedTime;
+
+	private int  floor;
+	private boolean  up;
+	private ArrayList<Integer> buttonPressed;
 	/** 
 	 *
 	 * Floor data
@@ -24,17 +30,29 @@ public class FloorData extends Data implements java.io.Serializable {
 	 */
 	public FloorData(int hour,int minute,int seconds,int milliSeconds,int floor,boolean up,int carButton) {
 
-		
-		super.hour =hour;
-		super.minute = minute;
-		super.seconds = seconds;
-		super.milliSeconds = milliSeconds;
-		super.floor = floor;
-		super.up = up;
-		super.carButton= carButton;
+		this.floor = floor;
+		this.up = up;
+		this. buttonPressed.add(carButton);
 		this.TimeInSeconds= hour*3600+minute*60+seconds;
 	}
-	
+
+	/** 
+	 *
+	 * Returns the system input time
+	 *
+	 * @return int 
+	 */
+	public int getFloor() {
+
+		return floor;
+	}
+	public boolean getUp() {
+		return up;
+	}
+	public ArrayList<Integer> getButton() {
+		return buttonPressed;
+	}
+
 	/** 
 	 *
 	 * Returns the system input time
@@ -42,10 +60,10 @@ public class FloorData extends Data implements java.io.Serializable {
 	 * @return int 
 	 */
 	public int TimeInSeconds() {
-		
+
 		return TimeInSeconds;
 	}
-	
+
 	/** 
 	 *
 	 * Returns the Simulated Time
@@ -53,10 +71,10 @@ public class FloorData extends Data implements java.io.Serializable {
 	 * @return int 
 	 */
 	public int simulatedTime() {
-		
+
 		return simulatedTime;
 	}
-	
+
 	/** 
 	 *
 	 * Calculates simulated Time
@@ -65,16 +83,16 @@ public class FloorData extends Data implements java.io.Serializable {
 	 * @return int 
 	 */
 	public void simulatedTime(int reference) {
-		
+
 		simulatedTime = TimeInSeconds -  reference;
 	}
-	
+
 	public String toString() {
-		return simulatedTime+" ms";
+		return "floor: "+floor+" going up "+up+" to "+buttonPressed.get(0)+" ";
 	}
-	
-	
-	
+
+
+
 
 }
 
