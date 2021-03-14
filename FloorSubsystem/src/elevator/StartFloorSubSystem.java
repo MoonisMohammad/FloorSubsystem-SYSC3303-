@@ -1,3 +1,4 @@
+package elevator;
 import java.nio.channels.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

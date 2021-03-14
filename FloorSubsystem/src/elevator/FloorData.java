@@ -1,5 +1,4 @@
-
-
+package elevator;
 /**
 * The class Floor data extends data
 */ 
