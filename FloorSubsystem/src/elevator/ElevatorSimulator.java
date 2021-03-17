@@ -30,6 +30,7 @@ public class ElevatorSimulator {
 		moveFloorTime();
 		currentFloor++;
 		sendChannel.elevatorArrived(currentFloor,elevatorID);
+		System.out.println("elevator"+elevatorID+"at floor"+currentFloor+"is going up");
 
 
 	}
@@ -47,6 +48,7 @@ public class ElevatorSimulator {
 		moveFloorTime();
 		currentFloor--;
 		sendChannel.elevatorArrived(currentFloor,elevatorID);
+		System.out.println("elevator"+elevatorID+"at floor"+currentFloor+"is going down");
 
 	}
 

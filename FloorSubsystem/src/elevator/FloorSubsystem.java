@@ -47,9 +47,11 @@ public class FloorSubsystem implements FloorInterface{
 
 	@Override
 	public synchronized  void Move(int elevator, boolean move) throws RemoteException{
+		
 
 		if(move)
 			try {
+				System.out.println("Received form Scheduler: make elevator "+ elevator +" to go up ");
 
 				elevators.get(elevator).goUp();
 
@@ -58,7 +60,7 @@ public class FloorSubsystem implements FloorInterface{
 			}
 		else
 			try {
-
+				System.out.println("Received form Scheduler: make elevator "+ elevator +" to go down ");
 				elevators.get(elevator).goDown();
 
 			} catch (RemoteException | InterruptedException e) {

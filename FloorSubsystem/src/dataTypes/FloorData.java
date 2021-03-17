@@ -44,7 +44,7 @@ public class FloorData extends Data implements java.io.Serializable {
 
 		return floor;
 	}
-	
+
 	/** 
 	 *
 	 * Returns the up value
@@ -54,7 +54,7 @@ public class FloorData extends Data implements java.io.Serializable {
 	public boolean getUp() {
 		return up;
 	}
-	
+
 	/** 
 	 *
 	 * Returns the values of buttons
@@ -100,7 +100,10 @@ public class FloorData extends Data implements java.io.Serializable {
 	 * @return String 
 	 */
 	public String toString() {
-		return "floor: "+floor+" going up "+up+" to "+buttonPressed.get(0)+" ";
+
+		if(up) return "System time:"+simulatedTime+" Floor:"+floor+" up was pressed"+" carbuttons: "+buttonPressed.get(0);
+
+		else return "System time:"+simulatedTime+" Floor:"+floor+" down was pressed"+" carbuttons: "+buttonPressed.get(0);
 	}
 
 
