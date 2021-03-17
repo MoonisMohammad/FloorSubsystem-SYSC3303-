@@ -32,7 +32,7 @@ public class ElevatorSimulator {
 		moveFloorTime();
 		currentFloor++;
 		sendChannel.elevatorArrived(currentFloor,elevatorID);
-		
+		System.out.println("elevator"+elevatorID+"went up and arrived at"+currentFloor);
 
 
 	}
@@ -47,10 +47,11 @@ public class ElevatorSimulator {
 	 */
 	public void goDown() throws InterruptedException, RemoteException {
 		
-		System.out.println("elevator"+elevatorID+"at floor"+currentFloor+"is going down");
+		
 		moveFloorTime();
 		currentFloor--;
 		sendChannel.elevatorArrived(currentFloor,elevatorID);
+		System.out.println("elevator"+elevatorID+"went down and arrived at"+currentFloor);
 
 	}
 
