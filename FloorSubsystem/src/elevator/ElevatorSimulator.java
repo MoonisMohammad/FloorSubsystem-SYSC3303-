@@ -8,9 +8,10 @@ public class ElevatorSimulator {
 	int elevatorID;
 	private FloorChannel sendChannel;
 
-	ElevatorSimulator(FloorChannel sendChannel){
+	ElevatorSimulator(int elevatorID,FloorChannel sendChannel){
 
 		currentFloor = 0;
+		this.elevatorID = elevatorID;
 		this.sendChannel = sendChannel;
 
 
@@ -26,11 +27,12 @@ public class ElevatorSimulator {
 	 * @throws  RemoteException 
 	 */
 	public void goUp() throws InterruptedException, RemoteException {
-
+		
+		System.out.println("elevator"+elevatorID+"at floor"+currentFloor+"is going up");
 		moveFloorTime();
 		currentFloor++;
 		sendChannel.elevatorArrived(currentFloor,elevatorID);
-		System.out.println("elevator"+elevatorID+"at floor"+currentFloor+"is going up");
+		
 
 
 	}
@@ -44,11 +46,11 @@ public class ElevatorSimulator {
 	 * @throws  RemoteException 
 	 */
 	public void goDown() throws InterruptedException, RemoteException {
-
+		
+		System.out.println("elevator"+elevatorID+"at floor"+currentFloor+"is going down");
 		moveFloorTime();
 		currentFloor--;
 		sendChannel.elevatorArrived(currentFloor,elevatorID);
-		System.out.println("elevator"+elevatorID+"at floor"+currentFloor+"is going down");
 
 	}
 

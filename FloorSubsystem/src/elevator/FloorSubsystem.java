@@ -25,9 +25,9 @@ public class FloorSubsystem implements FloorInterface{
 
 		this.sendChannel = sendChannel;
 		ElevatorSimulator elev0,elev1,elev2;
-		elev0 = new ElevatorSimulator(sendChannel);
-		elev1 = new ElevatorSimulator(sendChannel);
-		elev2 = new ElevatorSimulator(sendChannel);
+		elev0 = new ElevatorSimulator(0,sendChannel);
+		elev1 = new ElevatorSimulator(1,sendChannel);
+		elev2 = new ElevatorSimulator(2,sendChannel);
 		elevators.put(0,elev0);
 		elevators.put(1,elev1);
 		elevators.put(2,elev2);
@@ -51,8 +51,8 @@ public class FloorSubsystem implements FloorInterface{
 
 		if(move)
 			try {
+				
 				System.out.println("Received form Scheduler: make elevator "+ elevator +" to go up ");
-
 				elevators.get(elevator).goUp();
 
 			} catch (RemoteException | InterruptedException e) {
@@ -60,6 +60,7 @@ public class FloorSubsystem implements FloorInterface{
 			}
 		else
 			try {
+				
 				System.out.println("Received form Scheduler: make elevator "+ elevator +" to go down ");
 				elevators.get(elevator).goDown();
 
