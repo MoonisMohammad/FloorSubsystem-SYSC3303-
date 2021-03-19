@@ -31,8 +31,9 @@ public class ElevatorSimulator {
 		System.out.println("elevator"+elevatorID+"at floor"+currentFloor+"is going up");
 		moveFloorTime();
 		currentFloor++;
-		sendChannel.elevatorArrived(currentFloor,elevatorID);
 		System.out.println("elevator"+elevatorID+"went up and arrived at"+currentFloor);
+		sendChannel.elevatorArrived(currentFloor,elevatorID);
+		
 
 
 	}
