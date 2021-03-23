@@ -33,11 +33,11 @@ public class ElevatorSimulator {
 		moveFloorTime();
 		currentFloor++;
 		check = sendChannel.elevatorArrived(currentFloor,elevatorID);
-		System.out.println("elevator "+elevatorID+" went up and arrived at"+currentFloor);
+		System.out.println("elevator "+elevatorID+" went up and arrived at"+currentFloor +);
 
-		if(check == false) goUp();
+		if(!check) goUp();
 
-		else { 
+		else if(check) { 
 
 			System.out.println("elevator "+elevatorID+"stopped at"+currentFloor);
 			return;
@@ -65,9 +65,9 @@ public class ElevatorSimulator {
 		sendChannel.elevatorArrived(currentFloor,elevatorID);
 		System.out.println("elevator "+elevatorID+" went down and arrived at "+currentFloor);
 
-		if(check == false) goDown();
+		if(!check) goDown();
 
-		else { 
+		else if(check) { 
 
 			System.out.println("elevator "+elevatorID+" stopped at "+currentFloor);
 			return;
