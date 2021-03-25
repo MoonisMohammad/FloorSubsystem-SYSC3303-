@@ -49,8 +49,9 @@ public class Floor implements Runnable{
 			if(!inputs.isEmpty() && timeCheck(inputs.peek())){
 
 				try {
+					if(inputs.peek().doorError())floorChannel.doorFailure(inputs.peek().elevator());
 					
-					floorChannel.passChannel(inputs.peek());//sends inputs as data to scheduler
+					else floorChannel.passChannel(inputs.peek());//sends inputs as data to scheduler
 					
 				} catch (RemoteException e) {
 					e.printStackTrace();
@@ -149,6 +150,15 @@ public class Floor implements Runnable{
 		int minute = Integer.valueOf(splitTime[1]);
 		int seconds = Integer.valueOf(splitSeconds[0]);
 		int milliSeconds = Integer.valueOf(splitSeconds[1]);
+		
+		if(splitInput[1].equals("DoorError")) {
+			
+			int Elevator = Integer.valueOf(splitTime[2]);
+			FloorData data = new FloorData(hour,minute,seconds,milliSeconds,Elevator);
+			return data;	
+			
+		}
+		
 		int floor =Integer.valueOf(splitInput[1]);
 		boolean up;
 
@@ -164,5 +174,6 @@ public class Floor implements Runnable{
 
 
 	}
+	
 
-}
+	}

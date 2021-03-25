@@ -24,5 +24,5 @@ public interface FloorChannel extends Remote{
 
 	public boolean elevatorArrived(int floor,int Elevator) throws RemoteException;
 
-
+	public void doorFailure(int elevator) throws RemoteException; 
 }

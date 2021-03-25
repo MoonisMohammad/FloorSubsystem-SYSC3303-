@@ -28,6 +28,9 @@ public class FloorSubsystem implements FloorInterface{
 		elev0 = new ElevatorSimulator(0,sendChannel);
 		elev1 = new ElevatorSimulator(1,sendChannel);
 		elev2 = new ElevatorSimulator(2,sendChannel);
+		
+		elev2.simulateSensorFault(); //elevator 2 sensors will stop working
+		
 		elevators.put(0,elev0);
 		elevators.put(1,elev1);
 		elevators.put(2,elev2);

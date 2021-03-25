@@ -10,6 +10,8 @@ public class FloorData extends Data implements java.io.Serializable {
 
 	transient int TimeInSeconds;
 	transient int simulatedTime;
+	transient int elevator;
+	transient boolean doorError;
 
 	private int  floor;
 	private boolean  up;
@@ -32,7 +34,48 @@ public class FloorData extends Data implements java.io.Serializable {
 		this.up = up;
 		this. buttonPressed.add(carButton);
 		this.TimeInSeconds= hour*3600+minute*60+seconds;
+		this.doorError=false;
 	}
+	
+	/** 
+	 *
+	 * Floor data door error constructor
+	 *
+	 * @param systemInputTime  the system input time
+	 * @param floor  the floor
+	 */
+
+	public FloorData(int hour,int minute,int seconds,int milliSeconds,int elevator) {
+
+		this.elevator = elevator;
+		this.TimeInSeconds= hour*3600+minute*60+seconds;
+		this.doorError=true;
+	}
+	
+	/** 
+	 *
+	 * Returns the elevator
+	 *
+	 * @return int 
+	 */
+
+	public int elevator() {
+
+		return elevator;
+	}
+	
+	/** 
+	 *
+	 * Returns the Door Error
+	 *
+	 * @return boolean 
+	 */
+
+	public boolean doorError() {
+
+		return doorError;
+	}
+	
 	/** 
 	 *
 	 * Returns the floor
