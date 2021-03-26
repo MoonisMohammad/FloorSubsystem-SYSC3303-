@@ -11,7 +11,7 @@ public class ElevatorSimulator {
 
 	ElevatorSimulator(int elevatorID,FloorChannel sendChannel){
 
-		currentFloor = 0;
+		currentFloor = 1;
 		this.elevatorID = elevatorID;
 		this.sendChannel = sendChannel;
 
