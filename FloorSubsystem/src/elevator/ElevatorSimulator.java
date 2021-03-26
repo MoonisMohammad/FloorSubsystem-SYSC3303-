@@ -60,7 +60,7 @@ public class ElevatorSimulator {
 
 		moveFloorTime();
 		currentFloor--;
-		sendChannel.elevatorArrived(currentFloor,elevatorID);
+		check = sendChannel.elevatorArrived(currentFloor,elevatorID);
 		System.out.println("elevator "+elevatorID+" went down and arrived at "+currentFloor);
 
 		if(!check) goDown();
