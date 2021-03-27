@@ -37,6 +37,18 @@ public class Floor implements Runnable{
 		inputs = readInputFile();
 
 	}
+	
+	/** 
+	 *
+	 * It is a constructor for class Floor. 
+	 *
+	 */
+
+	public Floor() {
+
+	
+
+	}
 
 	/** 
 	 *

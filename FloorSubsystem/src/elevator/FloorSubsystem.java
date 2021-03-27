@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class FloorSubsystem implements FloorInterface{
 
 	static FloorChannel sendChannel;
-	HashMap<Integer, ElevatorSimulator> elevators = new HashMap<Integer, ElevatorSimulator>();
+	public HashMap<Integer, ElevatorSimulator> elevators = new HashMap<Integer, ElevatorSimulator>();
 
 	/** 
 	 *

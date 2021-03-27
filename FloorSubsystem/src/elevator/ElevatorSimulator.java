@@ -10,7 +10,7 @@ public class ElevatorSimulator {
 	boolean sensorFault;
 	private FloorChannel sendChannel;
 
-	ElevatorSimulator(int elevatorID,FloorChannel sendChannel){
+	public ElevatorSimulator(int elevatorID,FloorChannel sendChannel){
 
 		currentFloor = 1;
 		this.elevatorID = elevatorID;
@@ -19,11 +19,22 @@ public class ElevatorSimulator {
 
 
 	}
-	
-	
+	/** 
+	 * simulates a sensor failure
+	 */
 	public void simulateSensorFault() {
 		
 		this.sensorFault = true;
+		
+	}
+	
+	/** 
+	 * return true if there is a sensor failure
+	 * @return boolean
+	 */
+	public boolean sensorFault() {
+		
+		return sensorFault;
 		
 	}
 
@@ -57,9 +68,6 @@ public class ElevatorSimulator {
 			return;
 			
 		}
-
-
-
 
 	}
 	/** 
