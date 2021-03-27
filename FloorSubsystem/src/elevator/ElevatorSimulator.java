@@ -12,7 +12,7 @@ public class ElevatorSimulator {
 
 	ElevatorSimulator(int elevatorID,FloorChannel sendChannel){
 
-		currentFloor = 0;
+		currentFloor = 1;
 		this.elevatorID = elevatorID;
 		this.sendChannel = sendChannel;
 		this.sensorFault = false;
@@ -80,7 +80,7 @@ public class ElevatorSimulator {
 
 		moveFloorTime();
 		currentFloor--;
-		sendChannel.elevatorArrived(currentFloor,elevatorID);
+		check = sendChannel.elevatorArrived(currentFloor,elevatorID);
 		System.out.println("elevator "+elevatorID+" went down and arrived at "+currentFloor);
 
 		if(!check) goDown();
