@@ -49,15 +49,24 @@ public class Floor implements Runnable{
 			if(!inputs.isEmpty() && timeCheck(inputs.peek())){
 
 				try {
-					if(inputs.peek().doorError())floorChannel.doorFailure(inputs.peek().elevator());
+					if(inputs.peek().doorError()) {
+						
+						floorChannel.doorFailure(inputs.peek().elevator());
+						System.out.println("Door Failure in " + inputs.peek().elevator());
+					}
 					
-					else floorChannel.passChannel(inputs.peek());//sends inputs as data to scheduler
+					else { 
+						
+						
+						floorChannel.passChannel(inputs.peek());//sends inputs as data to scheduler}
+						System.out.println("Input Sent From Floor: " + inputs.peek());
+					}
 					
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
 				
-				System.out.println("Input Sent From Floor: " + inputs.peek());
+			
 				inputs.poll();
 			}
 
@@ -153,7 +162,7 @@ public class Floor implements Runnable{
 		
 		if(splitInput[1].equals("DoorError")) {
 			
-			int Elevator = Integer.valueOf(splitTime[2]);
+			int Elevator = Integer.valueOf(splitInput[2]);
 			FloorData data = new FloorData(hour,minute,seconds,milliSeconds,Elevator);
 			return data;	
 			
