@@ -20,7 +20,8 @@ import java.util.Queue;
 public class Floor implements Runnable{
 
 	private Queue<FloorData> inputs;
-	private FloorChannel floorChannel; 
+	private FloorChannel floorChannel;
+	private FloorSubsystem floorSubsystem;
 	public static long startingTime;
 
 	/** 
@@ -29,9 +30,10 @@ public class Floor implements Runnable{
 	 *
 	 */
 
-	public Floor(FloorChannel floorChannel) {
+	public Floor(FloorChannel floorChannel,FloorSubsystem floorSubsystem) {
 
 		this.floorChannel = floorChannel;
+		this.floorSubsystem = floorSubsystem;
 		inputs = readInputFile();
 
 	}
@@ -49,31 +51,36 @@ public class Floor implements Runnable{
 			if(!inputs.isEmpty() && timeCheck(inputs.peek())){
 
 				try {
-					if(inputs.peek().doorError()) {
-						
+					if(inputs.peek().isDoorError()) {
+
 						floorChannel.doorFailure(inputs.peek().elevator());
-						System.out.println("Door Failure in " + inputs.peek().elevator());
+
 					}
 					
+					else if(inputs.peek().isSensorError()) {
+
+						floorSubsystem.simulateSensorError(inputs.peek().elevator());
+					}
+
 					else { 
-						
-						
+
+
 						floorChannel.passChannel(inputs.peek());//sends inputs as data to scheduler}
-						System.out.println("Input Sent From Floor: " + inputs.peek());
+						
 					}
-					
+
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
-				
-			
+
+				System.out.println("Input Sent From Floor: " + inputs.peek());
 				inputs.poll();
 			}
 
 		}
 	}
 
-	
+
 
 
 
@@ -114,7 +121,7 @@ public class Floor implements Runnable{
 
 				String inputLine = myReader.nextLine();
 				FloorData data = inputStringToData(inputLine);
-				
+
 				if(i==0) {
 
 					data.simulatedTime(data.TimeInSeconds());
@@ -159,15 +166,25 @@ public class Floor implements Runnable{
 		int minute = Integer.valueOf(splitTime[1]);
 		int seconds = Integer.valueOf(splitSeconds[0]);
 		int milliSeconds = Integer.valueOf(splitSeconds[1]);
-		
+
 		if(splitInput[1].equals("DoorError")) {
-			
+
 			int Elevator = Integer.valueOf(splitInput[2]);
 			FloorData data = new FloorData(hour,minute,seconds,milliSeconds,Elevator);
+			data.doorError();
 			return data;	
-			
+
 		}
-		
+
+		if(splitInput[1].equals("SensorError")) {
+
+			int Elevator = Integer.valueOf(splitInput[2]);
+			FloorData data = new FloorData(hour,minute,seconds,milliSeconds,Elevator);
+			data.sensorError();
+			return data;	
+
+		}
+
 		int floor =Integer.valueOf(splitInput[1]);
 		boolean up;
 
@@ -183,6 +200,6 @@ public class Floor implements Runnable{
 
 
 	}
-	
 
-	}
+
+}

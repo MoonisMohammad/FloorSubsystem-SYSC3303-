@@ -12,6 +12,7 @@ public class FloorData extends Data implements java.io.Serializable {
 	transient int simulatedTime;
 	transient int elevator;
 	transient boolean doorError;
+	transient boolean sensorError;
 
 	private int  floor;
 	private boolean  up;
@@ -35,8 +36,9 @@ public class FloorData extends Data implements java.io.Serializable {
 		this. buttonPressed.add(carButton);
 		this.TimeInSeconds= hour*3600+minute*60+seconds;
 		this.doorError=false;
+		this.sensorError=false;
 	}
-	
+
 	/** 
 	 *
 	 * Floor data door error constructor
@@ -49,9 +51,23 @@ public class FloorData extends Data implements java.io.Serializable {
 
 		this.elevator = elevator;
 		this.TimeInSeconds= hour*3600+minute*60+seconds;
-		this.doorError=true;
+		this.doorError=false;
+		this.sensorError=false;
 	}
-	
+
+	public void doorError() {
+
+		this.doorError=true;
+
+	}
+
+	public void sensorError() {
+
+		this.sensorError=true;
+
+	}
+
+
 	/** 
 	 *
 	 * Returns the elevator
@@ -63,7 +79,7 @@ public class FloorData extends Data implements java.io.Serializable {
 
 		return elevator;
 	}
-	
+
 	/** 
 	 *
 	 * Returns the Door Error
@@ -71,11 +87,16 @@ public class FloorData extends Data implements java.io.Serializable {
 	 * @return boolean 
 	 */
 
-	public boolean doorError() {
+	public boolean isDoorError() {
 
 		return doorError;
 	}
-	
+
+	public boolean isSensorError() {
+
+		return sensorError;
+	}
+
 	/** 
 	 *
 	 * Returns the floor
@@ -143,13 +164,23 @@ public class FloorData extends Data implements java.io.Serializable {
 	 * @return String 
 	 */
 	public String toString() {
+		if(sensorError) {
+			return "Sensor Failure in elevator " + elevator;
+		}
+		else if(doorError) {
 
-		if(up) return "System time:"+simulatedTime+" Floor:"+floor+" up was pressed"+" carbuttons: "+buttonPressed.get(0);
+			return "Door Failure in elevator " + elevator;
 
-		else return "System time:"+simulatedTime+" Floor:"+floor+" down was pressed"+" carbuttons: "+buttonPressed.get(0);
+		}
+
+		else {
+
+			if(up) return "System time:"+simulatedTime+" Floor:"+floor+" up was pressed"+" carbuttons: "+buttonPressed.get(0);
+
+			else return "System time:"+simulatedTime+" Floor:"+floor+" down was pressed"+" carbuttons: "+buttonPressed.get(0);
+		}
+
 	}
-
-
 
 
 }

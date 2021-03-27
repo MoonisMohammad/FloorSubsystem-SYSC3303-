@@ -35,9 +35,6 @@ public class StartFloorSubSystem {
 
 		};
 
-		Floor floor = new Floor(sendChannel);
-		floorThread = new Thread(floor,"Floor Thread");
-
 		Registry registry;
 		FloorInterface stub;
 		FloorSubsystem floorSubsystem;
@@ -48,7 +45,9 @@ public class StartFloorSubSystem {
 			registry.bind("FloorInterface",stub);
 			System.err.println("Floor receive channel ready");
 
-
+			Floor floor = new Floor(sendChannel,floorSubsystem);
+			floorThread = new Thread(floor,"Floor Thread");
+			floorThread.start();
 
 		}catch(RemoteException e) {
 			e.printStackTrace();
@@ -58,7 +57,7 @@ public class StartFloorSubSystem {
 		} catch (java.rmi.AlreadyBoundException e) {
 			e.printStackTrace();
 		} 
-		floorThread.start();
+		
 
 		while(true) {
 			//wait

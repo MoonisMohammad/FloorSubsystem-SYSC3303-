@@ -43,7 +43,7 @@ public class ElevatorSimulator {
 			return; // Makes elevator 2 arrival sensor stop working
 		}
 		
-		System.out.println("elevator"+elevatorID+"at floor"+currentFloor+"is going up");
+		System.out.println("elevator "+elevatorID+" at floor"+currentFloor+"is going up");
 		moveFloorTime();
 		currentFloor++;
 		check = sendChannel.elevatorArrived(currentFloor,elevatorID);
@@ -53,7 +53,7 @@ public class ElevatorSimulator {
 
 		else if(check) { 
 
-			System.out.println("elevator "+elevatorID+"stopped at"+currentFloor);
+			System.out.println("elevator "+elevatorID+"stopped at "+currentFloor);
 			return;
 			
 		}
