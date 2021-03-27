@@ -55,11 +55,24 @@ public class FloorData extends Data implements java.io.Serializable {
 		this.sensorError=false;
 	}
 
+	/** 
+	 *
+	 * Returns the Door Error
+	 *
+	 * @return boolean 
+	 */
 	public void doorError() {
 
 		this.doorError=true;
 
 	}
+	
+	/** 
+	 *
+	 * Returns the Sensor Error
+	 *
+	 * @return boolean 
+	 */
 
 	public void sensorError() {
 
@@ -86,12 +99,17 @@ public class FloorData extends Data implements java.io.Serializable {
 	 *
 	 * @return boolean 
 	 */
-
 	public boolean isDoorError() {
 
 		return doorError;
 	}
-
+	
+	/** 
+	 *
+	 * Returns the Sensor Error
+	 *
+	 * @return boolean 
+	 */
 	public boolean isSensorError() {
 
 		return sensorError;
@@ -131,7 +149,7 @@ public class FloorData extends Data implements java.io.Serializable {
 
 	/** 
 	 *
-	 * Returns the values of buttons
+	 * Returns the Time in seconds
 	 *
 	 * @return ArrayList<Integer> 
 	 */
@@ -140,6 +158,12 @@ public class FloorData extends Data implements java.io.Serializable {
 		return TimeInSeconds;
 	}
 
+	/** 
+	 *
+	 * Returns simulated Time
+	 *
+	 * @return int 
+	 */
 
 	public int simulatedTime() {
 
