@@ -66,6 +66,7 @@ public class Floor implements Runnable{
 					if(inputs.peek().isDoorError()) {
 
 						floorChannel.doorFailure(inputs.peek().elevator());
+						floorSubsystem.simulateDoorError(inputs.peek().elevator());
 
 					}
 					

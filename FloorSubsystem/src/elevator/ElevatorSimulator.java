@@ -8,6 +8,10 @@ public class ElevatorSimulator {
 	int elevatorID;
 	boolean check;
 	boolean sensorFault;
+	boolean doorFault;
+	boolean up;
+	boolean down;
+	boolean stop;
 	private FloorChannel sendChannel;
 
 	public ElevatorSimulator(int elevatorID,FloorChannel sendChannel){
@@ -16,26 +20,76 @@ public class ElevatorSimulator {
 		this.elevatorID = elevatorID;
 		this.sendChannel = sendChannel;
 		this.sensorFault = false;
+		this.doorFault = false;
+		up =false;
+		down = false;
+		stop =true;
 
 
 	}
+	/**
+	 * @return 
+	 * 
+	 * 
+	 */
+	public int elevatorID() {
+
+
+		return elevatorID;
+	}
+
+	/**
+	 * @return 
+	 * 
+	 * 
+	 */
+	public int currentFloor() {
+
+
+		return currentFloor;
+	}
+
 	/** 
 	 * simulates a sensor failure
 	 */
 	public void simulateSensorFault() {
-		
+
 		this.sensorFault = true;
-		
+
 	}
 	
+	/** 
+	 *Notify a door failure
+	 */
+	public void simulateDoorFault() {
+
+		this.doorFault = true;
+
+	}
+
 	/** 
 	 * return true if there is a sensor failure
 	 * @return boolean
 	 */
 	public boolean sensorFault() {
-		
+
 		return sensorFault;
-		
+
+	}
+
+	/** 
+	 * return true if there is a sensor failure
+	 * @return boolean
+	 */
+	public String toString() {
+
+		if(sensorFault) return elevatorID + " | "+currentFloor+" | "+ " Sensor-ERROR ";
+		if(doorFault) return elevatorID + " | "+currentFloor+" | "+ " Door-ERROR ";
+		else if(up) return elevatorID + " | "+currentFloor+" | "+ " up ";
+		else if(down)return elevatorID + " | "+currentFloor+" | "+ " down ";
+		else return elevatorID + " | "+currentFloor+" | "+ " stop ";	
+
+
 	}
 
 	/** 
@@ -48,12 +102,16 @@ public class ElevatorSimulator {
 	 * @throws  RemoteException 
 	 */
 	public void goUp() throws InterruptedException, RemoteException {
-		
+
 		if(sensorFault) {
 			System.out.println("elevator "+elevatorID+" arrival sensor stop working");
 			return; // Makes elevator 2 arrival sensor stop working
 		}
-		
+
+		up =true;
+		down = false;
+		stop =false;
+
 		System.out.println("elevator "+elevatorID+" at floor"+currentFloor+"is going up");
 		moveFloorTime();
 		currentFloor++;
@@ -62,11 +120,14 @@ public class ElevatorSimulator {
 
 		if(!check) goUp();
 
-		else if(check) { 
+		else if(check) {
 
+			up =false;
+			down = false;
+			stop =true;
 			System.out.println("elevator "+elevatorID+"stopped at "+currentFloor);
 			return;
-			
+
 		}
 
 	}
@@ -80,11 +141,15 @@ public class ElevatorSimulator {
 	 * @throws  RemoteException 
 	 */
 	public void goDown() throws InterruptedException, RemoteException {
-		
+
 		if(sensorFault) {
 			System.out.println("elevator "+elevatorID+" arrival sensor stop working");
 			return; // Makes elevator 2 arrival sensor stop working
 		}
+
+		up =false;
+		down = true;
+		stop =false;
 
 		moveFloorTime();
 		currentFloor--;
@@ -95,9 +160,12 @@ public class ElevatorSimulator {
 
 		else if(check) { 
 
+			up =false;
+			down = false;
+			stop =true;
 			System.out.println("elevator "+elevatorID+" stopped at "+currentFloor);
 			return;
-			
+
 		}
 
 	}

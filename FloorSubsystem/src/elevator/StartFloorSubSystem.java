@@ -22,10 +22,15 @@ public class StartFloorSubSystem {
 		Thread floorThread;
 		Registry schedulerRegistry;
 
+		boolean done = false;
+		while (!done) {
 		try {
+			
+			System.out.println("Trying to connect");
 			schedulerRegistry = LocateRegistry.getRegistry(5454);
 			sendChannel = (FloorChannel) schedulerRegistry.lookup("FloorChannel");
 			System.err.println("Floor send channel ready");
+			done = true;
 
 		}catch (RemoteException e) {
 			e.printStackTrace();
@@ -33,7 +38,8 @@ public class StartFloorSubSystem {
 
 			e.printStackTrace();
 
-		};
+		}
+		}
 
 		Registry registry;
 		FloorInterface stub;
@@ -48,6 +54,10 @@ public class StartFloorSubSystem {
 			Floor floor = new Floor(sendChannel,floorSubsystem);
 			floorThread = new Thread(floor,"Floor Thread");
 			floorThread.start();
+			
+			while(true) {
+				floorSubsystem.updateDisplay();//wait
+			}
 
 		}catch(RemoteException e) {
 			e.printStackTrace();
@@ -58,10 +68,10 @@ public class StartFloorSubSystem {
 			e.printStackTrace();
 		} 
 		
+		
+		
 
-		while(true) {
-			//wait
-		}
+		
 
 
 

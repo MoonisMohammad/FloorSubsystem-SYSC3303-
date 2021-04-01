@@ -23,6 +23,13 @@ public interface FloorChannel extends Remote{
 	 */
 
 	public boolean elevatorArrived(int floor,int Elevator) throws RemoteException;
+	
+	/** 
+	 *
+	 * Tells scheduler door failure has occured
+	 * 
+	 *
+	 */
 
 	public void doorFailure(int elevator) throws RemoteException; 
 }
