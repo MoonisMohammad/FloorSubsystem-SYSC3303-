@@ -22,5 +22,11 @@ public interface FloorInterface extends Remote{
 	 * Calculates the time it took to deal with all the inputs
 	 */
 	public void calculateTime() throws RemoteException;
+	
+	/**
+	 * 
+	 * Displays door error in gui
+	 */
+	public void displayDoorError(int elevator) throws RemoteException,InterruptedException;
 
 }

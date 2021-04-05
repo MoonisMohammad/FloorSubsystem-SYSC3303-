@@ -8,24 +8,24 @@ public class ElevatorSimulator {
 	int elevatorID;
 	boolean check;
 	boolean sensorFault;
-	boolean doorFault;
 	boolean up;
 	boolean down;
 	boolean stop;
+	boolean fullSpeed;
 	private FloorChannel sendChannel;
 	public static long startingTime;
 
 	public ElevatorSimulator(int elevatorID,FloorChannel sendChannel){
-		
+
 		startingTime = System.nanoTime();
 		currentFloor = 1;
 		this.elevatorID = elevatorID;
 		this.sendChannel = sendChannel;
 		this.sensorFault = false;
-		this.doorFault = false;
 		up =false;
 		down = false;
 		stop =true;
+		fullSpeed = false;
 
 
 	}
@@ -59,15 +59,8 @@ public class ElevatorSimulator {
 		this.sensorFault = true;
 
 	}
+
 	
-	/** 
-	 *Notify a door failure
-	 */
-	public void simulateDoorFault() {
-
-		this.doorFault = true;
-
-	}
 
 	/** 
 	 * return true if there is a sensor failure
@@ -83,13 +76,12 @@ public class ElevatorSimulator {
 	 * return true if there is a sensor failure
 	 * @return boolean
 	 */
-	public String toString() {
+	public String state() {
 
-		if(sensorFault) return elevatorID + " | "+currentFloor+" | "+ " Sensor-ERROR ";
-		if(doorFault) return elevatorID + " | "+currentFloor+" | "+ " Door-ERROR ";
-		else if(up) return elevatorID + " | "+currentFloor+" | "+ " up ";
-		else if(down)return elevatorID + " | "+currentFloor+" | "+ " down ";
-		else return elevatorID + " | "+currentFloor+" | "+ " stop ";	
+		
+		if(up) return "up";
+		else if(down)return "down";
+		else return "stop";	
 
 
 	}
@@ -110,12 +102,21 @@ public class ElevatorSimulator {
 			return; // Makes elevator 2 arrival sensor stop working
 		}
 
+
 		up =true;
 		down = false;
 		stop =false;
 
-		
-		moveFloorTime();
+		if(fullSpeed) {
+
+			fullSpeedTime();
+		}
+
+		else {
+			initialSpeedTime();
+			fullSpeed =true;
+		}
+
 		currentFloor++;
 		check = sendChannel.elevatorArrived(currentFloor,elevatorID);
 		System.out.println(currentTime()+">"+"elevator "+elevatorID+" went up and arrived at "+currentFloor );
@@ -123,7 +124,7 @@ public class ElevatorSimulator {
 		if(!check) goUp();
 
 		else if(check) {
-
+			fullSpeed =false;
 			up =false;
 			down = false;
 			stop =true;
@@ -153,7 +154,16 @@ public class ElevatorSimulator {
 		down = true;
 		stop =false;
 
-		moveFloorTime();
+		if(fullSpeed) {
+
+			fullSpeedTime();
+		}
+
+		else {
+			initialSpeedTime();
+			fullSpeed =true;
+		}
+		
 		currentFloor--;
 		check = sendChannel.elevatorArrived(currentFloor,elevatorID);
 		System.out.println(currentTime()+">"+"elevator "+elevatorID+" went down and arrived at "+currentFloor);
@@ -161,7 +171,7 @@ public class ElevatorSimulator {
 		if(!check) goDown();
 
 		else if(check) { 
-
+			fullSpeed =false;
 			up =false;
 			down = false;
 			stop =true;
@@ -173,20 +183,36 @@ public class ElevatorSimulator {
 	}
 
 
+
+
 	/** 
 	 *
-	 * Simulates move floor time
+	 * Simulates move floor time with initial speed
 	 *
 	 * @param InterruptedException  the interrupted exception
 	 * @throws   InterruptedException 
 	 */
 
-	public void moveFloorTime() throws InterruptedException {
+	public void initialSpeedTime() throws InterruptedException {
 
-		TimeUnit.SECONDS.sleep(3);
+		TimeUnit.MILLISECONDS.sleep(4700);
 
 	}
-	
+
+	/** 
+	 *
+	 * Simulates move floor time with full speed
+	 *
+	 * @param InterruptedException  the interrupted exception
+	 * @throws   InterruptedException 
+	 */
+
+	public void fullSpeedTime() throws InterruptedException {
+
+		TimeUnit.SECONDS.sleep(1);
+
+	}
+
 	/** 
 	 *
 	 * returns current time 
@@ -196,7 +222,7 @@ public class ElevatorSimulator {
 	public long currentTime(){
 
 		return ((System.nanoTime() - startingTime) / 1000000000); 
-		
+
 
 	}
 
