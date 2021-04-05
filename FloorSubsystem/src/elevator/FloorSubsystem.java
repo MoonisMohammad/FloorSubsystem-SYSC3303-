@@ -17,8 +17,10 @@ import javax.swing.JPanel;
 
 public class FloorSubsystem extends JFrame implements FloorInterface {
 
+	public static long startingTime;
 	static FloorChannel sendChannel;
 	public HashMap<Integer, ElevatorSimulator> elevators = new HashMap<Integer, ElevatorSimulator>();
+	public boolean timeCalculationRequest;
 	JLabel label1;
 	JLabel label2;
 	JLabel label3;
@@ -34,7 +36,7 @@ public class FloorSubsystem extends JFrame implements FloorInterface {
 
 	public FloorSubsystem(FloorChannel sendChannel) {
 
-
+		startingTime = System.nanoTime();
 		this.sendChannel = sendChannel;
 		ElevatorSimulator elev0,elev1,elev2,elev3;
 		elev0 = new ElevatorSimulator(0,sendChannel);
@@ -101,7 +103,7 @@ public class FloorSubsystem extends JFrame implements FloorInterface {
 		if(move)
 			try {
 
-				System.out.println("Received from Scheduler: make elevator "+ elevator +" to go up ");
+				System.out.println(currentTime()+">"+"Received from Scheduler: make elevator "+ elevator +" to go up ");
 				elevators.get(elevator).goUp();
 
 			} catch (RemoteException | InterruptedException e) {
@@ -110,7 +112,7 @@ public class FloorSubsystem extends JFrame implements FloorInterface {
 		else
 			try {
 
-				System.out.println("Received from Scheduler: make elevator "+ elevator +" to go down ");
+				System.out.println(currentTime()+">"+"Received from Scheduler: make elevator "+ elevator +" to go down ");
 				elevators.get(elevator).goDown();
 
 			} catch (RemoteException | InterruptedException e) {
@@ -148,6 +150,39 @@ public class FloorSubsystem extends JFrame implements FloorInterface {
 
 		elevators.get(elevator).simulateDoorFault();
 
+	}
+	
+	/** 
+	 *
+	 * returns current time 
+	 *
+	 * @return long
+	 */
+	public long currentTime(){
+
+		return ((System.nanoTime() - startingTime) / 1000000000); 
+		
+
+	}
+
+	/**
+	 * 
+	 * Calculates the time it took to deal with all the inputs
+	 */
+	public void calculateTime() throws RemoteException {
+
+		timeCalculationRequest = true;
+		
+	}
+	/**
+	 * return true if requested for time calculation by scheduler
+	 *@return boolean time calculation request
+	 */
+	
+	public boolean timeCalculationRequest() throws RemoteException {
+
+		return timeCalculationRequest;
+		
 	}
 
 }

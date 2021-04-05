@@ -61,6 +61,8 @@ public class Floor implements Runnable{
 		while(true) {
 
 			if(!inputs.isEmpty() && timeCheck(inputs.peek())){
+				
+				
 
 				try {
 					if(inputs.peek().isDoorError()) {
@@ -86,13 +88,36 @@ public class Floor implements Runnable{
 					e.printStackTrace();
 				}
 
-				System.out.println("Input Sent From Floor: " + inputs.peek());
+				System.out.println(currentTime()+">"+"Input Sent From Floor: " + inputs.peek());
 				inputs.poll();
+			}
+			
+			try {
+				if(floorSubsystem.timeCalculationRequest()) {
+					
+					
+					System.out.println("Total time it took to deal with all inputs "+ currentTime());
+					
+				}
+			} catch (RemoteException e) {
+				e.printStackTrace();
 			}
 
 		}
 	}
 
+	/** 
+	 *
+	 * returns current time 
+	 *
+	 * @return long
+	 */
+	public long currentTime(){
+
+		return ((System.nanoTime() - startingTime) / 1000000000); 
+		
+
+	}
 
 
 
@@ -106,7 +131,7 @@ public class Floor implements Runnable{
 	 */
 	public static boolean timeCheck(FloorData d){
 
-		if(d.simulatedTime() >= ((System.nanoTime() - startingTime) / 1000000000)) {
+		if(d.simulatedTime() <= ((System.nanoTime() - startingTime) / 1000000000)) {
 			return true;}
 
 		return false;

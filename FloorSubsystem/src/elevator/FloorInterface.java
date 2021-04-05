@@ -17,5 +17,10 @@ public interface FloorInterface extends Remote{
 	
 	public void Move(int elevator,boolean move) throws RemoteException;//true = go up and false = go down
 	
+	/**
+	 * 
+	 * Calculates the time it took to deal with all the inputs
+	 */
+	public void calculateTime() throws RemoteException;
 
 }

@@ -13,9 +13,11 @@ public class ElevatorSimulator {
 	boolean down;
 	boolean stop;
 	private FloorChannel sendChannel;
+	public static long startingTime;
 
 	public ElevatorSimulator(int elevatorID,FloorChannel sendChannel){
-
+		
+		startingTime = System.nanoTime();
 		currentFloor = 1;
 		this.elevatorID = elevatorID;
 		this.sendChannel = sendChannel;
@@ -104,7 +106,7 @@ public class ElevatorSimulator {
 	public void goUp() throws InterruptedException, RemoteException {
 
 		if(sensorFault) {
-			System.out.println("elevator "+elevatorID+" arrival sensor stop working");
+			System.out.println(currentTime()+">"+"elevator "+elevatorID+" arrival sensor stop working");
 			return; // Makes elevator 2 arrival sensor stop working
 		}
 
@@ -112,11 +114,11 @@ public class ElevatorSimulator {
 		down = false;
 		stop =false;
 
-		System.out.println("elevator "+elevatorID+" at floor"+currentFloor+"is going up");
+		
 		moveFloorTime();
 		currentFloor++;
 		check = sendChannel.elevatorArrived(currentFloor,elevatorID);
-		System.out.println("elevator "+elevatorID+" went up and arrived at"+currentFloor );
+		System.out.println(currentTime()+">"+"elevator "+elevatorID+" went up and arrived at "+currentFloor );
 
 		if(!check) goUp();
 
@@ -125,7 +127,7 @@ public class ElevatorSimulator {
 			up =false;
 			down = false;
 			stop =true;
-			System.out.println("elevator "+elevatorID+"stopped at "+currentFloor);
+			System.out.println(currentTime()+">"+"elevator "+elevatorID+" stopped at "+currentFloor);
 			return;
 
 		}
@@ -143,7 +145,7 @@ public class ElevatorSimulator {
 	public void goDown() throws InterruptedException, RemoteException {
 
 		if(sensorFault) {
-			System.out.println("elevator "+elevatorID+" arrival sensor stop working");
+			System.out.println(currentTime()+">"+"elevator "+elevatorID+" arrival sensor stop working");
 			return; // Makes elevator 2 arrival sensor stop working
 		}
 
@@ -154,7 +156,7 @@ public class ElevatorSimulator {
 		moveFloorTime();
 		currentFloor--;
 		check = sendChannel.elevatorArrived(currentFloor,elevatorID);
-		System.out.println("elevator "+elevatorID+" went down and arrived at "+currentFloor);
+		System.out.println(currentTime()+">"+"elevator "+elevatorID+" went down and arrived at "+currentFloor);
 
 		if(!check) goDown();
 
@@ -163,7 +165,7 @@ public class ElevatorSimulator {
 			up =false;
 			down = false;
 			stop =true;
-			System.out.println("elevator "+elevatorID+" stopped at "+currentFloor);
+			System.out.println(currentTime()+">"+"elevator "+elevatorID+" stopped at "+currentFloor);
 			return;
 
 		}
@@ -182,6 +184,19 @@ public class ElevatorSimulator {
 	public void moveFloorTime() throws InterruptedException {
 
 		TimeUnit.SECONDS.sleep(3);
+
+	}
+	
+	/** 
+	 *
+	 * returns current time 
+	 *
+	 * @return long
+	 */
+	public long currentTime(){
+
+		return ((System.nanoTime() - startingTime) / 1000000000); 
+		
 
 	}
 
