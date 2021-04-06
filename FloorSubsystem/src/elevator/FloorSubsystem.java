@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.rmi.RemoteException;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.BoxLayout;
@@ -13,12 +15,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import dataTypes.FloorData;
+import dataTypes.elevatorMoveRequest;
+
 /**
  * The class Floor subsystem implements floor interface
  */ 
 
-public class FloorSubsystem extends JFrame implements FloorInterface {
+public class FloorSubsystem extends JFrame implements FloorInterface,Runnable {
 
+	private volatile Queue<elevatorMoveRequest> requests = new LinkedList(); ;
 	public static long startingTime;
 	static FloorChannel sendChannel;
 	public HashMap<Integer, ElevatorSimulator> elevators = new HashMap<Integer, ElevatorSimulator>();
@@ -142,6 +148,13 @@ public class FloorSubsystem extends JFrame implements FloorInterface {
 						
 
 	}
+	@Override
+	public void Move(int elevator, boolean move) throws RemoteException{
+		
+		requests.add(new elevatorMoveRequest(elevator,move));
+		
+		
+	}
 
 	/** 
 	 *
@@ -152,8 +165,7 @@ public class FloorSubsystem extends JFrame implements FloorInterface {
 	 * @throws   RemoteException
 	 */
 
-	@Override
-	public void Move(int elevator, boolean move) throws RemoteException{
+	public void HandleMove(int elevator, boolean move){
 
 
 		if(move)
@@ -271,6 +283,19 @@ public class FloorSubsystem extends JFrame implements FloorInterface {
 	public boolean timeCalculationRequest() throws RemoteException {
 
 		return timeCalculationRequest;
+		
+	}
+
+	@Override
+	public void run() {
+
+		while(true) {
+			if(!requests.isEmpty()) {
+				
+				HandleMove(requests.peek().elevator,requests.peek().up);
+				requests.poll();
+			}
+		}
 		
 	}
 

@@ -19,7 +19,7 @@ public class StartFloorSubSystem {
 	public static void main(String[] args)  {
 
 
-		Thread floorThread;
+		Thread floorThread,floorSubsystemThread;
 		Registry schedulerRegistry;
 
 		boolean done = false;
@@ -50,6 +50,10 @@ public class StartFloorSubSystem {
 			registry = LocateRegistry.createRegistry(69);
 			registry.bind("FloorInterface",stub);
 			System.err.println("Floor receive channel ready");
+			
+			
+			floorSubsystemThread = new Thread(floorSubsystem,"FloorSubsystem Thread");
+			floorSubsystemThread.start();
 
 			Floor floor = new Floor(sendChannel,floorSubsystem);
 			floorThread = new Thread(floor,"Floor Thread");
