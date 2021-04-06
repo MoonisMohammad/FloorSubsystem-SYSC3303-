@@ -2,8 +2,9 @@ package elevator;
 import java.rmi.RemoteException;
 import java.util.concurrent.TimeUnit;
 
-public class ElevatorSimulator {
+public class ElevatorSimulator implements Runnable  {
 
+	boolean upRequest;
 	int currentFloor;
 	int elevatorID;
 	boolean check;
@@ -15,7 +16,7 @@ public class ElevatorSimulator {
 	private FloorChannel sendChannel;
 	public static long startingTime;
 
-	public ElevatorSimulator(int elevatorID,FloorChannel sendChannel){
+	public ElevatorSimulator(int elevatorID,FloorChannel sendChannel) {
 
 		startingTime = System.nanoTime();
 		currentFloor = 1;
@@ -60,7 +61,7 @@ public class ElevatorSimulator {
 
 	}
 
-	
+
 
 	/** 
 	 * return true if there is a sensor failure
@@ -78,7 +79,7 @@ public class ElevatorSimulator {
 	 */
 	public String state() {
 
-		
+
 		if(up) return "up";
 		else if(down)return "down";
 		else return "stop";	
@@ -163,7 +164,7 @@ public class ElevatorSimulator {
 			initialSpeedTime();
 			fullSpeed =true;
 		}
-		
+
 		currentFloor--;
 		check = sendChannel.elevatorArrived(currentFloor,elevatorID);
 		System.out.println(currentTime()+">"+"elevator "+elevatorID+" went down and arrived at "+currentFloor);
@@ -225,7 +226,38 @@ public class ElevatorSimulator {
 
 
 	}
+	@Override
+	public void run() {
+		if(upRequest) {
+
+			
+				try {
+					goUp();
+				} catch (RemoteException | InterruptedException e) {
+
+					e.printStackTrace();
+				}
+				upRequest =false;
+			
+
+		}else {
+
+			try {
+				goDown();
+			} catch (RemoteException | InterruptedException e) {
+				
+				e.printStackTrace();
+			}
+		}
 
 
-
+	}
+	
+	public void upRequest(boolean request) {
+		
+		upRequest = request;
+		
+		
+		
+	}
 }
