@@ -217,7 +217,7 @@ public class FloorSubsystem extends JFrame implements FloorInterface {
 		else if(elevator == 2)error3.setText(doorError);
 		else error4.setText(doorError);
 
-		TimeUnit.SECONDS.sleep(1);
+		TimeUnit.SECONDS.sleep(3);
 		
 		if(elevator == 0)error1.setText(noError);
 		else if(elevator == 1)error2.setText(noError);
