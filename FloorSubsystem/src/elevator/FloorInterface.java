@@ -31,7 +31,7 @@ public interface FloorInterface extends Remote{
 	
 	/** 
 	 *
-	 * Creates sensor error in a elevator
+	 * Displays sensor error in a elevator
 	 *
 	 * @param elevator  the elevator
 
