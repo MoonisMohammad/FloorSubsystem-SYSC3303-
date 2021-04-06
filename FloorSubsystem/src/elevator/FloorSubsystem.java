@@ -197,13 +197,15 @@ public class FloorSubsystem extends JFrame implements FloorInterface {
 	
 	/** 
 	 *
-	 * Creates sensor error in a elevator
+	 * Displays sensor error in a elevator
 	 *
 	 * @param elevator  the elevator
 
 	 */
 
 	public void displaySensorError(int elevator)throws RemoteException {
+		
+		System.out.println(currentTime()+">"+"Received from Scheduler: Sensor error at "+ elevator);
 		
 		if(elevator == 0)error1.setText(sensorError);
 		else if(elevator == 1)error2.setText(sensorError);
