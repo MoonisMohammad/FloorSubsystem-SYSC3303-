@@ -28,5 +28,15 @@ public interface FloorInterface extends Remote{
 	 * Displays door error in gui
 	 */
 	public void displayDoorError(int elevator) throws RemoteException,InterruptedException;
+	
+	/** 
+	 *
+	 * Creates sensor error in a elevator
+	 *
+	 * @param elevator  the elevator
+
+	 */
+
+	public void displaySensorError(int elevator)throws RemoteException ;
 
 }

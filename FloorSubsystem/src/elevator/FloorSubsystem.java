@@ -190,12 +190,25 @@ public class FloorSubsystem extends JFrame implements FloorInterface {
 
 	public void simulateSensorError(int elevator) {
 		
+	
+		elevators.get(elevator).simulateSensorFault();
+
+	}
+	
+	/** 
+	 *
+	 * Creates sensor error in a elevator
+	 *
+	 * @param elevator  the elevator
+
+	 */
+
+	public void displaySensorError(int elevator)throws RemoteException {
+		
 		if(elevator == 0)error1.setText(sensorError);
 		else if(elevator == 1)error2.setText(sensorError);
 		else if(elevator == 2)error3.setText(sensorError);
 		else error4.setText(sensorError);
-
-		elevators.get(elevator).simulateSensorFault();
 
 	}
 	
