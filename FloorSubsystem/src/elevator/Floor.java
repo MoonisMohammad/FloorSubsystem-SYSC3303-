@@ -96,7 +96,8 @@ public class Floor implements Runnable{
 				if(floorSubsystem.timeCalculationRequest()) {
 					
 					
-					System.out.println("Total time it took to deal with all inputs "+ currentTime());
+					System.out.println("Total time it took to deal with all inputs "+ currentTime() + " Seconds");
+					break;
 					
 				}
 			} catch (RemoteException e) {
